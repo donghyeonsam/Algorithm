@@ -1,0 +1,24 @@
+T = int(input())
+
+for tc in range(1, T+1):
+
+    n = int(input())
+    card_list = list(map(str, input().split()))
+
+    shuffled_card_list = []
+
+    if n % 2 == 0:
+        first_half_card = card_list[0:n//2]
+        second_half_card = card_list[n//2:n]
+        for i in range(n//2):
+            shuffled_card_list.append(first_half_card[i])
+            shuffled_card_list.append(second_half_card[i])
+    elif n % 2 == 1:
+        first_half_card = card_list[0:n//2+1]
+        second_half_card = card_list[n//2+1:n]
+        for j in range(n//2):
+            shuffled_card_list.append(first_half_card[j])
+            shuffled_card_list.append(second_half_card[j])
+        shuffled_card_list.append(first_half_card[n//2])
+
+    print(f'#{tc}', *shuffled_card_list)
