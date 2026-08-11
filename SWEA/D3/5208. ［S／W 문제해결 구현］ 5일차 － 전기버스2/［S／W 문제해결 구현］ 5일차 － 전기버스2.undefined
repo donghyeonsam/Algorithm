@@ -1,0 +1,29 @@
+def exchange(location, battery, cnt):
+
+    global result
+
+    if location != n and cnt >= result:
+        return
+    if location != n and battery == 0:
+        return
+    if location == n and battery >= 0:
+        if cnt <= result:
+            result = cnt
+            return
+    if location < n:
+        exchange(location + 1, arr[location], cnt + 1)
+        exchange(location + 1, battery - 1, cnt)
+
+
+T = int(input())
+
+for tc in range(1, T+1):
+
+    arr = list(map(int, input().split()))
+    arr.append(0)
+    n = arr.pop(0)
+    result = 0xfffffffff
+
+    exchange(1, arr[0], 0)
+
+    print(f'#{tc} {result}')
