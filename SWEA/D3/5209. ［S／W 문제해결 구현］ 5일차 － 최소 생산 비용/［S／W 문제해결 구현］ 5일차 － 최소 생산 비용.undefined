@@ -1,0 +1,31 @@
+def cost_cal(cost, cnt):
+
+    global result
+    global used
+
+    if cost >= result:
+        return
+    if cnt == n:
+        if cost <= result:
+            result = cost
+            return
+
+    for product in range(n):
+        if not used[product+1]:
+            used[product+1] = True
+            cost_cal(cost + arr[cnt][product], cnt + 1)
+            used[product+1] = False
+
+
+T = int(input())
+
+for tc in range(1, T+1):
+
+    n = int(input())
+    arr = [list(map(int, input().split())) for _ in range(n)]
+    result = 0xffffffffff
+    used = [False] * (n+1)
+
+    cost_cal(0, 0)
+
+    print(f'#{tc} {result}')
