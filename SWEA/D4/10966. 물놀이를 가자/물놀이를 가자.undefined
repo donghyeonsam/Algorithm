@@ -1,0 +1,41 @@
+from collections import deque
+
+dx = [1, 0, -1, 0]
+dy = [0, 1, 0, -1]
+
+def BFS():
+
+
+    while q:
+        x, y = q.popleft()
+        for idx in range(4):
+            nx = x + dx[idx]
+            ny = y + dy[idx]
+            if 0 <= nx < N and 0 <= ny < M:
+                if cnt_map[nx][ny] == -1 and wtf[nx][ny] == 'L':
+                        cnt_map[nx][ny] = cnt_map[x][y] + 1
+                        q.append((nx, ny))
+
+T = int(input())
+
+for tc in range(1, T+1):
+
+    N, M = map(int, input().split())
+    wtf = [list(input().strip()) for _ in range(N)]
+    cnt_map = [[-1] * M for _ in range(N)]
+    result = 0
+    q = deque()
+
+    for row in range(N):
+        for col in range(M):
+            if wtf[row][col] == 'W':
+                q.append((row, col))
+                cnt_map[row][col] = 0
+
+    BFS()
+
+    for i in range(N):
+        for j in range(M):
+            result += cnt_map[i][j]
+
+    print(f'#{tc} {result}')
