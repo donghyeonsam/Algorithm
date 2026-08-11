@@ -1,16 +1,25 @@
-from itertools import combinations
+def comb(prev,t_sum):
+
+    global min_sum
+
+    if min_sum == B:
+        return
+    if t_sum >= B:
+        if t_sum < min_sum:
+            min_sum = t_sum
+            return
+    for i in range(prev, N):
+        comb(i+1, t_sum+S[i])
 
 T = int(input())
 
 for tc in range(1, T+1):
 
     N, B = list(map(int, input().split()))
-    arr = list(map(int, input().split()))
-    result = 0xffffffffff
+    S = list(map(int, input().split()))
+    min_sum = 1000000000
+    k = len(S)
 
-    for idx in range(N+1):
-        for comb in combinations(arr, idx):
-            if sum(comb) >= B:
-                result = min(sum(comb), result)
+    comb(0, 0)
 
-    print(f'#{tc} {result-B}')
+    print(f'#{tc} {min_sum - B}')
