@@ -1,0 +1,39 @@
+T = int(input())
+
+for tc in range(1, T+1):
+
+    min_change = 10000
+
+    n, m = list(map(int, input().split()))
+    flag_list = [list(map(str, input())) for _ in range(n)]
+    W_lst = []
+    B_lst = []
+    R_lst = []
+
+    for row in range(n-2):
+        W_lst = flag_list[0:row+1]
+        for row2 in range(row+1, n-1):
+            B_lst = flag_list[row+1:row2+1]
+            R_lst = flag_list[row2+1:n]
+
+            cg_sum = 0
+
+            for i in range(row + 1):
+                for j in range(m):
+                    if W_lst[i][j] != 'W':
+                        cg_sum += 1
+
+            for i in range(row2 - row):
+                for j in range(m):
+                    if B_lst[i][j] != 'B':
+                        cg_sum += 1
+
+            for i in range(n - row2 -1):
+                for j in range(m):
+                    if R_lst[i][j] != 'R':
+                        cg_sum += 1
+
+            if min_change >= cg_sum:
+                min_change = cg_sum
+
+    print(f'#{tc} {min_change}')
