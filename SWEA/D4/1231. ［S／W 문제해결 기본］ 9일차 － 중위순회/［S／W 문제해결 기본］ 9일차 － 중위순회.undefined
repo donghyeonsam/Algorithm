@@ -1,0 +1,34 @@
+def in_order(t):
+ 
+    global result
+ 
+    if t:
+        in_order(left[t])
+        result.append(tree[t])
+        in_order(right[t])
+ 
+T = 10
+ 
+for tc in range(1, T+1):
+ 
+    N = int(input())
+    E = N - 1
+    node_lst = [list(map(str, input().split())) for _ in range(N)]
+    left = [0] * (N+1)
+    right = [0] * (N+1)
+    tree = [0]
+    result = []
+ 
+    for k in range(N):
+ 
+        p, tmp = int(node_lst[k][0]), node_lst[k][1]
+        tree.append(tmp)
+        if len(node_lst[k]) >= 3:
+            left[p] = int(node_lst[k][2])
+        if len(node_lst[k]) == 4:
+            right[p] = int(node_lst[k][3])
+ 
+    in_order(1)
+ 
+    print(f'#{tc}', end=' ')
+    print(''.join(result))
