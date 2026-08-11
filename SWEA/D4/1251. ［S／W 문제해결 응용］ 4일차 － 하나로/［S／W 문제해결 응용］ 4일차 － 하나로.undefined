@@ -1,0 +1,41 @@
+import heapq
+
+def prim(E):
+
+    pq = []
+    pq.append((0, 0))
+    min_cost = 0
+    MST = [0] * N
+
+    while pq:
+        cost, node = heapq.heappop(pq)
+
+        if MST[node]:
+            continue
+
+        MST[node] = 1
+        min_cost += cost
+
+        for next_node in range(N):
+            if MST[next_node]:
+                continue
+
+            next_cost = ((X_lst[next_node] - X_lst[node]) ** 2 +
+                         (Y_lst[next_node] - Y_lst[node]) ** 2) * E
+
+            heapq.heappush(pq, (next_cost, next_node))
+
+    return round(min_cost)
+
+T = int(input())
+
+for tc in range(1, T+1):
+
+    N = int(input())
+    X_lst = list(map(int, input().split()))
+    Y_lst = list(map(int, input().split()))
+    E = float(input())
+
+    result = prim(E)
+
+    print(f'#{tc} {result}')
