@@ -1,0 +1,19 @@
+T = int(input())
+ 
+for tc in range(1, T+1):
+ 
+    n, m = list(map(int, input().split()))
+    Fly_arr = [list(map(int, input().split())) for _ in range(n)]
+    max_dead_Flys = 0
+ 
+    for i in range(n-m+1):
+        for j in range(n-m+1):
+            dead_Flys = 0
+            for g in range(m):
+                for k in range(m):
+                    dead_Flys += Fly_arr[i + g][j + k]
+ 
+            if max_dead_Flys < dead_Flys:
+                max_dead_Flys = dead_Flys
+ 
+    print(f'#{tc} {max_dead_Flys}')
