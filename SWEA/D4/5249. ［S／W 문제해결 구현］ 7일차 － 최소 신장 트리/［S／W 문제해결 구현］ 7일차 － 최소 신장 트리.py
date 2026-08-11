@@ -1,23 +1,27 @@
-def find_set(x):
+import heapq
  
-    if x == parents[x]:
-        return x
+def prim(s):
  
-    parents[x] = find_set(parents[x])
-    return parents[x]
+    min_weight = 0
+    MST = [False] * (V+1)
+    pq = []
+    heapq.heappush(pq, (0, s))
  
-def union(x, y):
+    while pq:
+        w, u = heapq.heappop(pq)
  
-    rx = find_set(x)
-    ry = find_set(y)
+        if MST[u]:
+            continue
  
-    if rx == ry:
-        return
+        MST[u] = True
+        min_weight += w
  
-    if rx < ry:
-        parents[ry] = rx
-    else:
-        parents[rx] = ry
+        for next_w, next_u in graph[u]:
+            if MST[next_u]:
+                continue
+            heapq.heappush(pq, (next_w, next_u))
+ 
+    return min_weight
  
 T = int(input())
  
@@ -25,20 +29,12 @@ for tc in range(1, T+1):
  
     V, E = map(int, input().split())
     edges = [list(map(int, input().split())) for _ in range(E)]
-    cnt = 0
-    result = 0
+    graph = [[] * (V+1) for _ in range(V+1)]
  
-    parents = [i for i in range(V+1)]
+    for start, end, weight in edges:
+        graph[start].append((weight, end))
+        graph[end].append((weight, start))
  
-    edges.sort(key=lambda x: x[2])
- 
-    for u, v, w in edges:
-        if find_set(u) != find_set(v):
-            union(u, v)
-            cnt += 1
-            result += w
- 
-            if cnt == V:
-                break
+    result = prim(0)
  
     print(f'#{tc} {result}')
