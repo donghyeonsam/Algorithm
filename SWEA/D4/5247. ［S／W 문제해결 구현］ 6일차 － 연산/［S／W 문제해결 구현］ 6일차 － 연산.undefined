@@ -1,0 +1,29 @@
+from collections import deque
+
+
+def BFS(n):
+
+    used = [False] * 1000001
+    cnt = 0
+    q = deque()
+    used[n] = True
+    q.append((n, cnt))
+    while q:
+        cur, cnt = q.popleft()
+        if cur == M:
+            return cnt
+
+        for k in [cur + 1, cur - 1, cur * 2, cur - 10]:
+            if 0 < k <= 1000000 and not used[k]:
+                used[k] = True
+                q.append((k, cnt + 1))
+
+
+T = int(input())
+
+for tc in range(1, T + 1):
+    N, M = map(int, input().split())
+
+    result = BFS(N)
+
+    print(f'#{tc} {result}')
