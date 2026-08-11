@@ -1,0 +1,33 @@
+T = int(input())
+
+def find_five(a, b, n):
+    global result
+
+    for dx, dy in [[0, 1], [1, 0], [1, -1], [1, 1]]:
+        O_cnt = 1
+        for k in range(1, 5):
+            ni = a + dx * k
+            nj = b +dy * k
+            if 0 <= ni < n and 0 <= nj < n and mok_list[ni][nj] == 'o':
+                O_cnt += 1
+            else:
+                break
+        if O_cnt == 5:
+            result = 'YES'
+            return
+
+for tc in range(1, T+1):
+
+    n = int(input())
+    mok_list = [list(map(str, input())) for _ in range(n)]
+
+    result = 'NO'
+
+    for i in range(n):
+        for j in range(n):
+            if mok_list[i][j] == 'o':
+                find_five(i, j, n)
+        if result == 'YES':
+            break
+
+    print(f'#{tc} {result}')
